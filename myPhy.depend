@@ -1973,7 +1973,11 @@
 	"testApp.h"
 	"ofxBox2d.h"
 
-1380841470 c:\openf\of_v0.8.0_win_cb_release\apps\myapps\myphy\src\testapp.h
+1380852246 c:\openf\of_v0.8.0_win_cb_release\apps\myapps\myphy\src\testapp.h
 	"ofMain.h"
 	"ofxBox2d.h"
+	<math.h>
+
+1380853535 source:c:\openf\of_v0.8.0_win_cb_release\apps\myapps\myphy\src\testapp.cpp
+	"testApp.h"
 

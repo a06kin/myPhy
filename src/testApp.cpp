@@ -9,55 +9,43 @@ void testApp::setup(){
 
     ofBackground(255,255,255);
 
-    maxD = ofDist(0, 0, ofGetWidth(), ofGetHeight());
+    ofSetColor(0);
 
-    mouseX = mouseY = 5;
+    myFont.loadFont("arial.ttf", 15);
 
     //ofNoFill();
 
-    ofSetLineWidth( 70 );
+    ofSetLineWidth( 1 );
 
     x = ofGetWidth();
     y = ofGetHeight();
 
-    ofSetRectMode(OF_RECTMODE_CENTER);
-
     ofEnableSmoothing();
 
-    direct = true;
     step = 0.;
 
-    ceil = 180.;
+    ceil = 90.;
 
-    sSize = 500;
+    sSize = 100;
 
     cCount = 30;
+
+    nCount = 4;
+
+    v = .001;
 }
 
 
 //--------------------------------------------------------------
 void testApp::update(){
 
-    if (direct){
-        if (rot > ceil/2 ) step-=.1;
-        else step+=.1;
+    step = rot > ceil/2 ? step - v: step + v;
 
-        rot+=step;
-        if ( rot > ceil ){
-            rot = 0;
-            //direct = !direct;
-            step = 0;
-        }
-    }else{
-        if (rot < -ceil/2 ) step-=.1;
-        else step+=.1;
+    rot+=step;
 
-        rot-=step;
-        if ( rot < -ceil ){
-            rot = 0;
-            direct = !direct;
-            step = 0;
-        }
+    if (( rot > (1.5 * ceil) ) || ( rot < -(1.5 * ceil))){
+        rot = 0;
+        step = 0;
     }
 
 }
@@ -65,26 +53,15 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 
-    /*ofTranslate(150, 150, 0);
+    stringstream tmp;
 
-    ofRotate((rot * ( 4 * PI ) / 360)*50);
+    tmp << "Rot: " << rot << endl
+        << "V: " << v << endl
+        << "Ceil: " << ceil << endl
+        << "Size: " << sSize << endl
+        << "Count: " << cCount << endl;
 
-    ofSetLineWidth( 3 );
-
-    ofSetColor( 255 * abs( sin( 45 + float(rot) / 10 ))  , 255 * abs( sin( float(rot) / 10 )), 255 * abs( sin( 90 + float(rot) / 10 )));
-
-    ofRect( -75, -75, 150, 150 );
-
-    ofTranslate(-150, -150, 0);*/
-
-    /*for(int i = 0; i <= ofGetWidth(); i += 20) {
-        for(int j = 0; j <= ofGetHeight(); j += 20) {
-          float size = ofDist(mouseX, mouseY, i, j);
-          size = size/maxD * 66;
-          ofEllipse(i, j, size, size);
-        }
-    }*/
-
+    myFont.drawString(tmp.str(), 50, 50);
 
     ofTranslate(x / 2, y / 2);
 
@@ -92,20 +69,74 @@ void testApp::draw(){
 
     bool cCol = false;
 
-    for(int sTmp = sSize; sTmp > 0; sTmp = sTmp - ctTmp) {
-        //ofRotate((mouseX + mouseY) / 10.0);
-        ofSetColor(cCol ? 0 : 255);
+    for(int sTmp = sSize; sTmp > 0; sTmp -= ctTmp) {
+
+        ofRotate(rot);
+        //ofRect(0, 0, sTmp, sTmp);
+
+        ofPath dr = polygon(nCount, 0, 0, sTmp);
+
+        dr.setColor(ofColor(cCol ? 0 : 255));
 
         cCol = ! cCol;
 
-        ofRotate(rot);
-        ofRect(0, 0, sTmp, sTmp);
+        dr.draw();
     }
 
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
+switch(key){
+    case(357): //up
+        sSize++;
+        break;
+    case(358): //right
+        cCount++;
+        break;
+    case(359): //down
+        sSize--;
+        break;
+    case(356): //left
+        cCount--;
+        break;
+    case(334): //plus(NumLk)
+        ceil++;
+        rot = 0;
+        step = 0;
+        break;
+    case(333): //minus(NumLk)
+        ceil--;
+        rot = 0;
+        step = 0;
+        break;
+    case(328): //8(NumLk)
+        break;
+    case(326): //6(NumLk)
+        break;
+    case(322): //2(NumLk)
+        break;
+    case(324): //4(NumLk)
+        break;
+    case(45): //-
+        v-=.001;
+        rot = 0;
+        step = 0;
+        break;
+    case(61): //=
+        v+=.001;
+        rot = 0;
+        step = 0;
+        break;
+    case(257): //f1
+        break;
+    case('z'): //z
+        nCount++;
+        break;
+    case('x'): //x
+        nCount--;
+        break;
+    }
 
 }
 
@@ -116,8 +147,6 @@ void testApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ) {
-    mouseX = x;
-    mouseY = y;
 }
 
 //--------------------------------------------------------------
@@ -148,4 +177,33 @@ void testApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void testApp::dragEvent(ofDragInfo dragInfo){
 
+}
+
+//--------------------------------------------------------------
+ofPath testApp::polygon(int n, float cx, float cy, float w, float h, float startAngle)
+{
+    ofPath pts;
+
+    pts.setMode(ofPath::POLYLINES);
+
+    float angle = (M_PI*2) / n;
+
+    w = w / 2.0;
+    h = h / 2.0;
+
+    for (int i = 0; i < n; i++)
+    {
+        pts.lineTo( cx + w * cos(startAngle + angle * i),
+        cy + h * sin(startAngle + angle * i));
+    }
+
+    pts.close();
+
+    return pts;
+}
+
+//--------------------------------------------------------------
+ofPath testApp::polygon(int n, float cx, float cy, float r)
+{
+    return polygon(n, cx, cy, r * 2.0, r * 2.0, 0.0);
 }

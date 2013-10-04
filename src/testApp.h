@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxBox2d.h"
+#include <math.h>
 
 class testApp : public ofBaseApp{
 
@@ -10,32 +11,36 @@ class testApp : public ofBaseApp{
 		void update();
 		void draw();
 
-		void keyPressed(int key);
-		void keyReleased(int key);
-		void mouseMoved(int x, int y );
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
+		void keyPressed(int);
+		void keyReleased(int);
+		void mouseMoved(int, int);
+		void mouseDragged(int, int, int);
+		void mousePressed(int, int, int);
+		void mouseReleased(int, int, int);
+		void windowResized(int, int);
+		void dragEvent(ofDragInfo);
+		void gotMessage(ofMessage);
+
+		ofPath polygon(int, float, float, float, float, float);
+
+		ofPath polygon(int, float, float, float);
+
+		ofTrueTypeFont myFont;
 
 		float rot;
 
         int x, y;
 
-        float maxD;
-
         float step;
-
-        bool direct;
-
-        int mouseX, mouseY;
 
         float ceil;
 
         int sSize;
 
         int cCount;
+
+        int nCount;
+
+        float v;
 
 };
