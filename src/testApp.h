@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxBox2d.h"
 #include <math.h>
 
 class testApp : public ofBaseApp{
