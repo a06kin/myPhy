@@ -1968,16 +1968,14 @@
 
 1380529078 source:c:\openf\of_v0.8.0_win_cb_release\apps\myapps\myphy\icon.rc
 
-1380633727 source:c:\openf\of_v0.8.0_win_cb_release\apps\myapps\myphy\src\main.cpp
+1380991773 source:c:\openf\of_v0.8.0_win_cb_release\apps\myapps\myphy\src\main.cpp
 	"ofMain.h"
 	"testApp.h"
-	"ofxBox2d.h"
 
-1380852246 c:\openf\of_v0.8.0_win_cb_release\apps\myapps\myphy\src\testapp.h
+1380991837 c:\openf\of_v0.8.0_win_cb_release\apps\myapps\myphy\src\testapp.h
 	"ofMain.h"
-	"ofxBox2d.h"
 	<math.h>
 
-1380853535 source:c:\openf\of_v0.8.0_win_cb_release\apps\myapps\myphy\src\testapp.cpp
+1380991706 source:c:\openf\of_v0.8.0_win_cb_release\apps\myapps\myphy\src\testapp.cpp
 	"testApp.h"
 

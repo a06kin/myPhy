@@ -42,4 +42,24 @@ class testApp : public ofBaseApp{
 
         float v;
 
+        string helpS;
+
+        bool help;
+
+        int c11, c12, c13, c21, c22, c23;
+
+        void reset();
+
+        void randomColor();
+
+        int line;
+
+        int getRandom(int, int);
+
+        void genNoise();
+
+        float noiseScale;
+
+        bool noise;
+
 };
